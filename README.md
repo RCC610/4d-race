@@ -14,4 +14,4 @@ Live AI Fluency game for the Red Clay All Hands (Oct 22, 2026).
 Keys: `→` next, `F` full screen, `H` hide the control bar.
 
 ## Changing questions
-Edit `common.js` (the `RACE` list). Live scores and answers are stored in the Firebase project `d-race-6001d` (Firestore).
+Edit `common.js` (the `RACE` list). Live scores and answers are stored in the Firebase project `d-race-bca86` (Firestore).

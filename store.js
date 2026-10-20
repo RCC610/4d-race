@@ -1,12 +1,12 @@
 // Data layer. Talks to Firebase Firestore in real use.
 // With ?mock=ws://host:port it talks to the local test server instead (same API).
 const CONFIG = {
-  apiKey: "AIzaSyCfRJ7DvqvoOaLzQOZTPpurGdxCWkVE4h4",
-  authDomain: "d-race-6001d.firebaseapp.com",
-  projectId: "d-race-6001d",
-  storageBucket: "d-race-6001d.firebasestorage.app",
-  messagingSenderId: "32017619744",
-  appId: "1:32017619744:web:f11318dc0173a8289a1545"
+  apiKey: "AIzaSyCsBFmBzbV6lrsJhDadBz4rJhDayzXeb18",
+  authDomain: "d-race-bca86.firebaseapp.com",
+  projectId: "d-race-bca86",
+  storageBucket: "d-race-bca86.firebasestorage.app",
+  messagingSenderId: "225610127648",
+  appId: "1:225610127648:web:84cabf30b8b4faf9639f45"
 };
 const ROOT = 'games/live';
 
