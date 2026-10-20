@@ -13,10 +13,11 @@ const ROOT = 'games/live';
 let api = null;
 
 async function firebaseApi() {
-  const fb = await import('./vendor/fb.js');
+  const fb = await import('./fb.js');
   const app = fb.initializeApp(CONFIG);
-  const db = fb.initializeFirestore(app, { experimentalAutoDetectLongPolling: true });
-  const ref = p => fb.doc(db, ROOT + '/' + p);
+  const db = fb.initializeFirestore(app, { experimentalAutoDetectLongPolling: true, ignoreUndefinedProperties: true });
+  // Single docs (state, board) live in a 'meta' collection; Firestore paths must alternate collection/doc.
+  const ref = p => fb.doc(db, ROOT + '/' + (p.includes('/') ? p : 'meta/' + p));
   const col = p => fb.collection(db, ROOT + '/' + p);
   return {
     watchDoc(p, cb, err) { return fb.onSnapshot(ref(p), s => cb(s.exists() ? s.data() : null), e => err && err(e)); },
