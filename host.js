@@ -62,7 +62,7 @@ async function showBoard(phase) {
   await db.set('state', { ...S, phase });
 }
 async function next() {
-  if (!S) return;
+  if (!S) return newGame();
   if (S.phase === 'lobby') return startRound(0);
   if (S.phase === 'play') return reveal();
   if (S.phase === 'reveal') {
@@ -89,7 +89,7 @@ function runTick() {
 /* ---------- big screen ---------- */
 const timerHTML = () => { const left = Math.max(0, S.T - (now() - S.at) / 1000); return `<div class="mini-timer" id="tmr" style="--p:${clamp(100 * left / S.T, 0, 100)}"><span>${Math.ceil(left)}</span></div>`; };
 function render() {
-  if (!S) { $('#screen').innerHTML = `<div class="layer lobby-wait"><p>Press <b>New game</b> to set up.</p></div>`; lastRender = ''; return controls(); }
+  if (!S) { if (lastRender !== 'setup') { $('#screen').innerHTML = `<div class="layer lobby-wait sun"><div class="setup">${bolt('wave')}<h2>Ready when you are</h2><p>Press the red <b>Open the lobby</b> button below.<br>Then people can scan the code and join.</p></div></div>`; lastRender = 'setup'; } return controls(); }
   const key = S.run + ':' + S.phase + ':' + S.i;
   if (key !== lastRender) {
     lastRender = key;
@@ -109,14 +109,14 @@ function updateLive() {
   if (S.phase === 'play') { const l = $('#live'); if (l) l.textContent = `${ansFor(S.i).length} / ${live().length} answered`; }
 }
 function controls() {
-  const lbl = !S ? ['New game', ''] : {
+  const lbl = !S ? ['Open the lobby \u2192', 'No game yet'] : {
     lobby: ['Start game →', `${live().length} joined`],
     play: ['Reveal now →', `${S ? ansFor(S.i).length : 0} of ${live().length} answered`],
     reveal: [S.i === RACE.length - 1 ? 'Final results →' : LEADER_AFTER.includes(S.i) ? 'Top players →' : 'Next round →', `Round ${S.i + 1} of ${RACE.length}`],
     leaders: ['Next round →', `Round ${S.i + 1} of ${RACE.length} done`],
     final: ['Game over', 'Press New game to play again']
   }[S.phase];
-  $('#next').textContent = lbl[0]; $('#next').disabled = !S || S.phase === 'final'; $('#status').textContent = lbl[1];
+  $('#next').textContent = lbl[0]; $('#next').disabled = !!S && S.phase === 'final'; $('#status').textContent = lbl[1];
 }
 
 function lobbyHTML() {
@@ -225,14 +225,15 @@ async function assignTeams() {
 
 /* ---------- boot ---------- */
 async function boot() {
-  db = await store();
-  $('#next').onclick = next;
-  $('#new').onclick = newGame;
+  render();
+  try { db = await store(); } catch (e) { return showErr(e); }
+  $('#next').onclick = () => next().catch(showErr);
+  $('#new').onclick = () => newGame().catch(showErr);
   $('#full').onclick = () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
   $('#hide').onclick = () => document.body.classList.toggle('bare');
   document.addEventListener('keydown', e => {
     if (e.target.tagName === 'INPUT') return;
-    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); if (!$('#next').disabled) next(); }
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); if (!$('#next').disabled) next().catch(showErr); }
     if (e.key === 'h' || e.key === 'H') document.body.classList.toggle('bare');
     if (e.key === 'f' || e.key === 'F') $('#full').click();
   });
@@ -244,5 +245,8 @@ async function boot() {
   db.watchCol('players', d => { players = d; assignTeams(); render(); }, e => showErr(e));
   db.watchCol('ans', d => { answers = d; render(); }, e => showErr(e));
 }
-function showErr(e) { $('#status').textContent = 'Connection problem: ' + (e && e.message || e); }
+function showErr(e) {
+  const m = 'Connection problem: ' + (e && e.message || e);
+  $('#status').textContent = m; $('#err').textContent = m; $('#err').hidden = false;
+}
 boot();
