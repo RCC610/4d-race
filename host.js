@@ -5,7 +5,7 @@ const $ = s => document.querySelector(s);
 const INK = '#2A1714';
 const LINK = 'rcc610.github.io/4d-race';
 const GRACE = 1.5;          // seconds after the timer before answers close
-const LEADER_AFTER = [1, 3, 5]; // show top players after rounds 2, 4 and 6 (one per D)
+const LEADER_AFTER = [3]; // 12-minute slot: one top-players board at halftime (after round 4), then the final
 
 let db, S = null;            // S = shared state doc
 let players = [], answers = [];
@@ -227,13 +227,13 @@ async function assignTeams() {
 async function boot() {
   render();
   try { db = await store(); } catch (e) { return showErr(e); }
-  $('#next').onclick = () => next().catch(showErr);
-  $('#new').onclick = () => newGame().catch(showErr);
+  $('#next').onclick = () => guard(next());
+  $('#new').onclick = () => guard(newGame());
   $('#full').onclick = () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
   $('#hide').onclick = () => document.body.classList.toggle('bare');
   document.addEventListener('keydown', e => {
     if (e.target.tagName === 'INPUT') return;
-    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); if (!$('#next').disabled) next().catch(showErr); }
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); if (!$('#next').disabled) guard(next()); }
     if (e.key === 'h' || e.key === 'H') document.body.classList.toggle('bare');
     if (e.key === 'f' || e.key === 'F') $('#full').click();
   });
@@ -244,6 +244,11 @@ async function boot() {
   }, e => showErr(e));
   db.watchCol('players', d => { players = d; assignTeams(); render(); }, e => showErr(e));
   db.watchCol('ans', d => { answers = d; render(); }, e => showErr(e));
+}
+// If the database doesn't answer in 12 seconds, say so instead of sitting silently.
+function guard(p) {
+  const t = setTimeout(() => showErr('The game database is not answering. Check that Firestore is set up in Firebase and that this network allows it.'), 12000);
+  return p.then(() => { clearTimeout(t); $('#err').hidden = true; }, e => { clearTimeout(t); showErr(e); });
 }
 function showErr(e) {
   const m = 'Connection problem: ' + (e && e.message || e);

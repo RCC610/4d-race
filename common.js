@@ -15,28 +15,28 @@ export const SW3 = [
 export const OKC = [{ n: 'OK', c: '#36A16B' }, { n: 'Not OK', c: '#E5533D' }];
 
 export const RACE = [
-  { type: 'swipe', d: 0, title: 'Swipe sort', ins: 'Who should do each task?', T: 30, items: [
+  { type: 'swipe', d: 0, title: 'Swipe sort', ins: 'Who should do each task?', T: 25, items: [
     { t: 'Decide who gets promoted', c: 0 }, { t: 'Turn 300 test cases into a clean table', c: 2 }, { t: 'Summarize a 40-page requirements doc', c: 1 }],
     say: 'Promotions stay human. Tables go to AI. Summaries: <b>AI drafts, you check</b>.' },
-  { type: 'swipe', d: 0, title: 'Swipe sort', ins: 'Who should do each task?', T: 30, items: [
+  { type: 'swipe', d: 0, title: 'Swipe sort', ins: 'Who should do each task?', T: 25, items: [
     { t: 'Write the client apology after an outage', c: 1 }, { t: 'Brainstorm names for the workshop', c: 2 }, { t: 'Approve a change to a customer’s bill', c: 0 }],
     say: 'AI can draft the apology, <b>the relationship is yours</b>. Billing approvals stay human.' },
-  { type: 'build', d: 1, title: 'Build the prompt', ins: 'Pick the 3 additions that help this prompt most', T: 35, weak: 'Write an email about the go-live.',
+  { type: 'build', d: 1, title: 'Build the prompt', ins: 'Pick the 3 additions that help this prompt most', T: 30, weak: 'Write an email about the go-live.',
     chips: [{ t: 'Who it’s for: 80,000 customers', ok: 1 }, { t: 'Make it exciting!!!' }, { t: 'The go-live date and what changes for them', ok: 1 }, { t: 'Add “please” and “thank you”' }, { t: 'A past notice to use as an example', ok: 1 }, { t: 'Make it longer' }],
     better: 'Write a go-live notice for 80,000 residential customers. Billing moves to the new system on Tuesday, March 3. Bills will look different, but amounts won’t change. Match the tone of the attached past notice.' },
-  { type: 'build', d: 1, title: 'Build the prompt', ins: 'Pick the 3 additions that help this prompt most', T: 35, weak: 'Summarize this contract.',
+  { type: 'build', d: 1, title: 'Build the prompt', ins: 'Pick the 3 additions that help this prompt most', T: 30, weak: 'Summarize this contract.',
     chips: [{ t: 'What you’ll use the summary for', ok: 1 }, { t: 'Tell it it’s the best AI ever' }, { t: 'The format: 5 plain-language bullets', ok: 1 }, { t: 'Use ALL CAPS so it pays attention' }, { t: 'Ask it to flag risky clauses and quote them', ok: 1 }, { t: 'Say it’s urgent' }],
     better: 'Summarize this vendor contract for our project lead, who decides this week whether to sign. Use 5 plain-language bullets, then list any risky clauses with the exact quote.' },
-  { type: 'pen', d: 2, title: 'Red Pen', ins: 'Tap anything wrong in this AI answer', T: 40, ask: 'Where are we on go-live?', segs: [
+  { type: 'pen', d: 2, title: 'Red Pen', ins: 'Tap anything wrong in this AI answer', T: 35, ask: 'Where are we on go-live?', segs: [
     { t: 'Go-live is set for Tuesday, March 3.' }, { t: 'A 2024 industry study found 92% of utilities finish go-live early.', bad: 'Made-up source' },
     { t: 'Cutover starts Friday at 6 PM.' }, { t: 'Final data validation is optional for smaller utilities, so we skipped it.', bad: 'Wrong and risky' }] },
-  { type: 'pen', d: 2, title: 'Red Pen', ins: 'Tap anything wrong in this AI answer', T: 40, ask: 'Summarize today’s design review.', segs: [
+  { type: 'pen', d: 2, title: 'Red Pen', ins: 'Tap anything wrong in this AI answer', T: 35, ask: 'Summarize today’s design review.', segs: [
     { t: 'Cutover moves to the weekend of the 14th.' }, { t: 'Priya owns the rate mapping, due Friday.' }, { t: 'Sam seemed unprepared and frustrated.', bad: 'Personal judgment' },
     { t: 'The client approved the Phase 2 budget.', bad: 'Nobody said this' }, { t: 'Next meeting: Thursday at 10 AM.' }] },
-  { type: 'ok', d: 3, title: 'OK or Not OK', ins: 'Quick calls: is this OK?', T: 30, items: [
+  { type: 'ok', d: 3, title: 'OK or Not OK', ins: 'Quick calls: is this OK?', T: 25, items: [
     { t: 'Drafting a status report with an approved AI tool', ok: 1 }, { t: 'Pasting customer records into a public chatbot', ok: 0 },
     { t: 'Telling the client AI helped draft the report', ok: 1 }, { t: 'Letting AI email the client without review', ok: 0 }] },
-  { type: 'ok', d: 3, title: 'OK or Not OK', ins: 'Quick calls: is this OK?', T: 30, items: [
+  { type: 'ok', d: 3, title: 'OK or Not OK', ins: 'Quick calls: is this OK?', T: 25, items: [
     { t: 'Sending a deliverable that still says “As an AI language model”', ok: 0 }, { t: 'Checking AI’s numbers against the source before sharing', ok: 1 },
     { t: 'Using AI to write a colleague’s review without reading it', ok: 0 }, { t: 'Asking for a source when AI gives a stat with none', ok: 1 }] }
 ];
