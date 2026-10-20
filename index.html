@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>4D Race · Join</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 60'><polygon points='30,2 10,34 22,34 14,58 34,26 22,26 32,2' fill='%23FFD23F' stroke='%232A1714' stroke-width='3.5'/></svg>">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* Phone page: the demo's phone screen, sized for real phones and laptops. */
+  html,body{margin:0;height:100%;background:#fff}
+  #app.ph{border-radius:0;min-height:100%;height:auto;max-width:520px;margin:0 auto;padding-bottom:env(safe-area-inset-bottom)}
+  @media (min-width:560px){ html,body{background:var(--page)} #app.ph{margin:24px auto;min-height:calc(100% - 48px);border-radius:24px;box-shadow:0 10px 30px rgba(30,23,21,.10)} }
+  .ph-top{padding:16px 20px 8px;font-size:14px}
+  .brand4{color:var(--text);font-weight:700}.brand4 b{color:var(--clay);font-weight:800}
+  .ph-team{font-size:14px;padding:4px 12px 4px 9px}
+  .ph-team::before{width:10px;height:10px}
+  .ph-body{padding:6px 20px 24px;gap:12px;overflow:visible}
+  .ph h4{font-size:24px}
+  .ph p{font-size:15.5px;line-height:1.45}
+  .ph-kick{font-size:12.5px!important;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--clay)!important;margin-top:4px!important}
+  .ph-q{font-size:18px;font-weight:800;line-height:1.3;color:var(--text)!important;letter-spacing:-.01em}
+  .ph-scn{font-size:15px}
+  .ph-center{min-height:62vh;gap:10px}
+  .ph-center.join{min-height:auto;flex:none;padding:6vh 0 8px}
+  .ph-bolt{font-size:4.4px}
+  .ph input{font-size:18px;padding:14px}
+  .ph-btn{font-size:17px;padding:15px;border-radius:14px}
+  .ph-seg{font-size:15.5px;padding:12px 14px;border-radius:12px;line-height:1.4}
+  .ph-seg b{font-size:13px}
+  .ph-mail{gap:9px}
+  .ph-out{font-size:16px;padding:14px;font-style:italic}
+  .ph-card{min-height:190px;padding:24px 20px;cursor:default;touch-action:auto}
+  .ph-card .no{font-size:13px}
+  .ph-card .task{font-size:23px}
+  .sw-btns{gap:8px}
+  .sw-btn{font-size:15px;padding:16px 6px;border-radius:14px}
+  .ph-undo{font-size:14.5px;padding:8px}
+  .okp{font-size:15.5px;padding:12px;gap:10px;border-radius:14px}
+  .okb{gap:8px}
+  .okb button{font-size:15px;padding:11px;border-radius:11px}
+  .tbar{height:6px}
+  .res{font-size:30px!important}
+  .pts{font-size:17px}
+  .hi{color:var(--text)}
+  .look{font-size:14px!important;margin-top:6px!important}
+  button{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+  #toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,30px);opacity:0;transition:.25s;background:var(--text);color:#fff;font:600 14px var(--sans);padding:10px 14px;border-radius:12px;max-width:90vw;text-align:center;pointer-events:none;z-index:9}
+  #toast.on{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<div class="ph" id="app"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<noscript><p style="padding:20px">Please turn on JavaScript to play.</p></noscript>
+<script type="module" src="play.js"></script>
+</body>
+</html>

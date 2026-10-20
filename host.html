@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>4D Race · Big screen</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 60'><polygon points='30,2 10,34 22,34 14,58 34,26 22,26 32,2' fill='%23FFD23F' stroke='%232A1714' stroke-width='3.5'/></svg>">
+<link rel="stylesheet" href="styles.css">
+<style>
+  html,body{height:100%;margin:0;background:#0B0807;overflow:hidden}
+  .hostwrap{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:10px}
+  .hostwrap .screen{width:min(100%, calc((100vh - 74px) * 16 / 9));border-radius:12px}
+  body.bare .hostwrap{padding:0;gap:0}
+  body.bare .hostwrap .screen{width:min(100vw, 100vh * 16 / 9);border-radius:0}
+  body.bare .bar{display:none}
+  .bar{display:flex;gap:8px;align-items:center;width:min(100%, calc((100vh - 74px) * 16 / 9));color:#A99B94;font:600 13px var(--sans)}
+  .bar .btn{background:#211A17;border-color:#3A302C;color:#F7F1EC}
+  .bar .btn:hover{background:#2B2320}
+  .bar .btn.primary{background:#D9482F;border-color:#D9482F;color:#fff}
+  .bar .btn.primary:hover{background:#C23E27}
+  .bar .grow{flex:1}
+  .bar kbd{font:inherit;font-size:11px;border:1px solid #3A302C;border-radius:5px;padding:1px 5px;color:#7F726C}
+  .qrimg{display:block;width:15cqw;height:15cqw;margin:1.2cqw auto;border-radius:.6cqw}
+  .joinbox .link{font-weight:800;font-size:1.45cqw;letter-spacing:-.01em;color:var(--text);margin-top:.2cqw;word-break:break-all}
+  .names{display:flex;flex-wrap:wrap;gap:.5cqw;margin-top:1.2cqw;max-height:9cqw;overflow:hidden}
+  .names span{display:inline-flex;align-items:center;gap:.45cqw;background:var(--s-1);border:1px solid var(--s-line);border-radius:99cqw;padding:.3cqw .9cqw .3cqw .6cqw;font-size:1.05cqw;font-weight:700;color:var(--s-text);animation:pop .35s both}
+  .names span::before{content:"";width:.7cqw;height:.7cqw;border-radius:50%;background:var(--tc)}
+  @keyframes pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+  .tl.wait{justify-content:center;gap:1cqw;font-weight:700}
+  .okrow.wait{grid-template-columns:minmax(0,1fr)}
+  .lobby-wait{display:grid;place-items:center;font-size:2cqw;color:var(--s-muted)}
+</style>
+</head>
+<body>
+<div class="hostwrap">
+  <div class="screen" id="screen"></div>
+  <div class="bar">
+    <button class="btn primary" id="next">Start game</button>
+    <span id="status"></span>
+    <span class="grow"></span>
+    <span><kbd>→</kbd> next · <kbd>F</kbd> full screen · <kbd>H</kbd> hide this bar</span>
+    <button class="btn" id="full">Full screen</button>
+    <button class="btn" id="hide">Hide bar</button>
+    <button class="btn" id="new">New game</button>
+  </div>
+</div>
+<script type="module" src="host.js"></script>
+</body>
+</html>
